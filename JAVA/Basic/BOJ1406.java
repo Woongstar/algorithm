@@ -19,50 +19,102 @@
 //        출력
 //        첫째 줄에 모든 명령어를 수행하고 난 후 편집기에 입력되어 있는 문자열을 출력한다.
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Stack;
 
 
 public class BOJ1406 {
 
+//    public static void main(String []args) throws IOException{
+//
+//        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+//        String input = bf.readLine();
+//
+//        char[] temp = input.toCharArray();
+//
+//        ArrayList<Character> inputChar = new ArrayList<>();
+//
+//        for(char x : temp) inputChar.add(x);
+//
+//        int n = Integer.parseInt(bf.readLine());
+//        ArrayList<String> order = new ArrayList<>();
+//        for(int i=0;i<n;i++){
+//            order.add(bf.readLine());
+//        }
+//        int pointer = input.length();
+//        int index;
+//        for(int i=0;i<n;i++){
+//            if(order.get(i).charAt(0)=='P'){
+//                inputChar.add(pointer,order.get(i).charAt(2));
+//                pointer++;
+//            }else if(order.get(i).charAt(0)=='L'){
+//                if(pointer!=0) pointer--;
+//            }else if(order.get(i).charAt(0)=='D'){
+//                if(pointer!=inputChar.size()) pointer++;
+//            }else{
+//                if(pointer!=0){
+//                    index = pointer-1;
+//                    inputChar.remove(index);
+//                    pointer--;
+//                }
+//            }
+//        }
+//
+//        for(char x:inputChar) System.out.print(x);
+//
+//    }
+
     public static void main(String []args) throws IOException{
 
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-        String input = bf.readLine();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        char[] temp = input.toCharArray();
+        String str = br.readLine();
+        int M = Integer.parseInt(br.readLine());
 
-        ArrayList<Character> inputChar = new ArrayList<>();
+        Stack<String> leftSt = new Stack<String>();
+        Stack<String> rightSt = new Stack<String>();
 
-        for(char x : temp) inputChar.add(x);
-
-        int n = Integer.parseInt(bf.readLine());
-        ArrayList<String> order = new ArrayList<>();
-        for(int i=0;i<n;i++){
-            order.add(bf.readLine());
+        String[] arr = str.split("");
+        for(String s : arr) {
+            leftSt.push(s);
         }
-        int pointer = input.length();
-        int index;
-        for(int i=0;i<n;i++){
-            if(order.get(i).charAt(0)=='P'){
-                inputChar.add(pointer,order.get(i).charAt(2));
-                pointer++;
-            }else if(order.get(i).charAt(0)=='L'){
-                if(pointer!=0) pointer--;
-            }else if(order.get(i).charAt(0)=='D'){
-                if(pointer!=inputChar.size()) pointer++;
-            }else{
-                if(pointer!=0){
-                    index = pointer-1;
-                    inputChar.remove(index);
-                    pointer--;
-                }
+
+        for(int i = 0; i < M; i++) {
+            String command = br.readLine();
+            char c = command.charAt(0);
+            switch(c) {
+                case 'L':
+                    if(!leftSt.isEmpty())
+                        rightSt.push(leftSt.pop());
+
+                    break;
+                case 'D':
+                    if(!rightSt.isEmpty())
+                        leftSt.push(rightSt.pop());
+
+                    break;
+                case 'B':
+                    if(!leftSt.isEmpty()) {
+                        leftSt.pop();
+                    }
+                    break;
+                case 'P':
+                    char t = command.charAt(2);
+                    leftSt.push(String.valueOf(t));
+                    break;
+                default:
+                    break;
             }
         }
+        while(!leftSt.isEmpty())
+            rightSt.push(leftSt.pop());
 
-        for(char x:inputChar) System.out.print(x);
+        while(!rightSt.isEmpty())
+            bw.write(rightSt.pop());
 
+        bw.flush();
+        bw.close();
     }
 }
