@@ -1,3 +1,5 @@
+//BFS를 이용하여 가장 짧은 거리를 탐색하시오
+
 import java.util.LinkedList;
 import java.util.Queue;
 
