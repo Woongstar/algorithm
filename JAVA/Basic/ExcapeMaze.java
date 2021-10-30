@@ -36,7 +36,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class ExcapeMaze {
-    static int[][] board = new int[8][8];
+    static final int[][] board = new int[8][8];
     static int[] dx = {-1,0,1,0};
     static int[] dy = {0,1,0,-1};
     static int answer = 0;
