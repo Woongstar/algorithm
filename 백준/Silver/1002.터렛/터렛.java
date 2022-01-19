@@ -1,0 +1,36 @@
+import java.io.*;
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        StringTokenizer st;
+        StringBuilder sb = new StringBuilder();
+        for (int k = 0; k < n; k++) {
+            st = new StringTokenizer(br.readLine());
+            int x1 = Integer.parseInt(st.nextToken());
+            int y1 = Integer.parseInt(st.nextToken());
+            int r1 = Integer.parseInt(st.nextToken());
+            int x2 = Integer.parseInt(st.nextToken());
+            int y2 = Integer.parseInt(st.nextToken());
+            int r2 = Integer.parseInt(st.nextToken());
+
+            double d = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+            if (x1 == x2 && y1 == y2&&r1==r2) {
+                sb.append("-1").append("\n");
+                continue;
+            }
+            if (d>Math.max(r1,r2)-Math.min(r1,r2)&&d<Math.max(r1,r2)+Math.min(r1,r2)) {
+                sb.append("2").append("\n");
+            } else if (d==Math.max(r1,r2)-Math.min(r1,r2)||d==r1+r2) {
+                sb.append("1").append("\n");
+            } else {
+                sb.append("0").append("\n");
+            }
+        }
+        System.out.println(sb);
+    }
+}
+
