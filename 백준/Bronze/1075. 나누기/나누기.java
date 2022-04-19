@@ -1,21 +1,24 @@
-import java.util.*;
+import java.io.*;
 
 
 
 public class Main{
 
     public static void main(String []args) throws Exception {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int F = sc.nextInt();
-        N = (N/100) * 100;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int n = Integer.parseInt(br.readLine());
+        int m = Integer.parseInt(br.readLine());
 
-        while(N%F != 0)
-            N++;
+        n = (n/100) *100;
+        while(n%m!=0){
+            n++;
+        }
+        n = n%100;
+        String ans =  n<10 ? "0"+n : n+"";
 
-        N %= 100;
-
-        if(N < 10) System.out.println("0" + N);
-        else System.out.println(N);
+       bw.write(ans);
+        bw.flush();
+        bw.close();
     }
 }
